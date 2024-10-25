@@ -719,6 +719,12 @@ class ProfileScreen extends MultiProviderScreen {
 
   final bool showMFATile;
 
+  /// Indicates whether the username field should be shown.
+  final bool showUsernameField;
+
+  /// Indicates whether the user avatar should be shown.
+  final bool showAvatar;
+
   const ProfileScreen({
     Key? key,
     FirebaseAuth? auth,
@@ -732,6 +738,8 @@ class ProfileScreen extends MultiProviderScreen {
     this.cupertinoNavigationBar,
     this.actionCodeSettings,
     this.showMFATile = false,
+    this.showUsernameField = true,
+    this.showAvatar = true,
   }) : super(key: key, providers: providers, auth: auth);
 
   Future<bool> _reauthenticate(BuildContext context) {
@@ -783,15 +791,17 @@ class ProfileScreen extends MultiProviderScreen {
     final content = Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Align(
-          child: UserAvatar(
-            auth: auth,
-            placeholderColor: avatarPlaceholderColor,
-            shape: avatarShape,
-            size: avatarSize,
+        if (showAvatar)
+          Align(
+            child: UserAvatar(
+              auth: auth,
+              placeholderColor: avatarPlaceholderColor,
+              shape: avatarShape,
+              size: avatarSize,
+            ),
           ),
-        ),
-        Align(child: EditableUserDisplayName(auth: auth)),
+        if (showUsernameField)
+          Align(child: EditableUserDisplayName(auth: auth)),
         if (!user.emailVerified) ...[
           RebuildScope(
             builder: (context) {
