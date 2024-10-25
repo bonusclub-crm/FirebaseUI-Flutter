@@ -8,7 +8,7 @@ environment:
   flutter: '>=1.17.0'
 
 dependencies:
-  firebase_auth: ^4.2.10
+  firebase_auth: ^5.1.4
   firebase_ui_oauth: ^1.1.16
   flutter:
     sdk: flutter
